@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table -> string('photo');
-            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
             $table ->decimal('kda');
+            $table->enum('position',['Top','Jungle','Mid','Adc','Support']);
+            $table->date('birth_date');
+            $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
         });
     }
 
