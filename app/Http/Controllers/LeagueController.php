@@ -12,7 +12,7 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        //
+        return League::all();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\countries;
+use App\Models\Countries;
 use Illuminate\Http\Request;
 
 class CountriesController extends Controller
@@ -12,7 +12,11 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        return Countries::where('countries_id',auth() ->id()->get());
+
+        $countries = Countries::all();
+        \Log::info('Countries data:', $countries->toArray());
+        return response()->json($countries);
+        //return Countries::where('countries',auth() ->id()->get());
     }
 
     /**

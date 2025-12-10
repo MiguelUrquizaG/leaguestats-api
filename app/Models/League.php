@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class League extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'logo',
         'country_id',
