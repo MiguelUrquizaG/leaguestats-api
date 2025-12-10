@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('rated_matches');
             $table->integer('followers');
             $table->enum('rol',['user','admin']);
-            $table->timestamps();
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
         });
     }

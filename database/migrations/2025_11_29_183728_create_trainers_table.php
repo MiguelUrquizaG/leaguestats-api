@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
             $table->date('birth_date');
-            $table->timestamps();
         });
     }
 

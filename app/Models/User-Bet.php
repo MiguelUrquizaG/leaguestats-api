@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class User-Bet extends Model
+class UserBet extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable=[
+        'user_id',
+        'bet_id',
+    ];
 }

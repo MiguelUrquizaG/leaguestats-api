@@ -16,7 +16,6 @@ return new class extends Migration
             $table->double('bet_value_home_team');
             $table->double('bet_value_away_team');
             $table->foreignId('mvp_player')->constrained('players')->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
