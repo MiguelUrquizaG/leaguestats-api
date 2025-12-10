@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\countries;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
-class CountriesController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Countries::where('countries_id',auth() ->id()->get());
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class CountriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(countries $countries)
+    public function show(UserProfile $userProfile)
     {
         //
     }
@@ -42,7 +42,7 @@ class CountriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(countries $countries)
+    public function edit(UserProfile $userProfile)
     {
         //
     }
@@ -50,7 +50,7 @@ class CountriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, countries $countries)
+    public function update(Request $request, UserProfile $userProfile)
     {
         //
     }
@@ -58,7 +58,7 @@ class CountriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(countries $countries)
+    public function destroy(UserProfile $userProfile)
     {
         //
     }

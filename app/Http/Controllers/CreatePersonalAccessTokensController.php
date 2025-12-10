@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\countries;
+use App\Models\create_personal_access_tokens;
 use Illuminate\Http\Request;
 
-class CountriesController extends Controller
+class CreatePersonalAccessTokensController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Countries::where('countries_id',auth() ->id()->get());
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class CountriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(countries $countries)
+    public function show(create_personal_access_tokens $create_personal_access_tokens)
     {
         //
     }
@@ -42,7 +42,7 @@ class CountriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(countries $countries)
+    public function edit(create_personal_access_tokens $create_personal_access_tokens)
     {
         //
     }
@@ -50,7 +50,7 @@ class CountriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, countries $countries)
+    public function update(Request $request, create_personal_access_tokens $create_personal_access_tokens)
     {
         //
     }
@@ -58,7 +58,7 @@ class CountriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(countries $countries)
+    public function destroy(create_personal_access_tokens $create_personal_access_tokens)
     {
         //
     }
