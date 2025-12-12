@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserProfile;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,13 +26,12 @@ class AuthenticatedSessionController extends Controller
             return response(['message' => 'Invalid credentials'], 422);
         }
 
-       $user_profile = UserProfile::where('user_id', $request->user()->id())->get();
+       $user_profile = UserProfile::where('user_id', $request->user()->id)->get();
 
         $token = $request->user()->createToken('api')->plainTextToken;
         return response([
             'token' => $token,
             'user'  => $request->user(),
-            'user_profile' => $request ->$user_profile()
         ], 200);
     }
 
