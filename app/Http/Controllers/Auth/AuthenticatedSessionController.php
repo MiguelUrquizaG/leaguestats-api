@@ -24,10 +24,13 @@ class AuthenticatedSessionController extends Controller
             return response(['message' => 'Invalid credentials'], 422);
         }
 
+       $user_profile = UserProfile::where('user_id', $request->user()->id())->get();
+
         $token = $request->user()->createToken('api')->plainTextToken;
         return response([
             'token' => $token,
             'user'  => $request->user(),
+            'user_profile' => $request ->$user_profile()
         ], 200);
     }
 
