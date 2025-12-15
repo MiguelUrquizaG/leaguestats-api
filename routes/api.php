@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum') ->group(function(){
     Route::apiResource('leagues',LeagueController::class);
 });
 
+
