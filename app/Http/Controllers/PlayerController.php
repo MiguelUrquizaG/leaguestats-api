@@ -20,7 +20,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+            
     }
 
     /**

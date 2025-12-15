@@ -38,9 +38,9 @@ class CountriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(countries $countries)
+    public function show(int $country)
     {
-        //
+        return Countries::find($country);
     }
 
     /**
@@ -62,8 +62,8 @@ class CountriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(countries $countries)
+    public function destroy(int $country)
     {
-        //
+        return Countries::destroy($country);
     }
 }

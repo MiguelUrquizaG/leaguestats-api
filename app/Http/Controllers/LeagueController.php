@@ -58,8 +58,8 @@ class LeagueController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(League $league)
+    public function destroy(int $league)
     {
-        //
+        return League::destroy($league);
     }
 }
