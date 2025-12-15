@@ -28,7 +28,14 @@ class LeagueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $league = new League();
+        $league ->name = $request->name;
+        $league->logo = $request->logo;
+        $league->country_id = $request ->country_id;
+
+        $league->save();
+
+        return response()->json($league);
     }
 
     /**

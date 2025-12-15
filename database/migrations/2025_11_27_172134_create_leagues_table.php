@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('logo');
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp(column: 'updated_at')->nullable();
         });
     }
 
