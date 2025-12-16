@@ -43,7 +43,7 @@ class LeagueController extends Controller
      */
     public function show(League $league)
     {
-        //
+        return League::find($league->id);
     }
 
     /**
