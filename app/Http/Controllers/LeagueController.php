@@ -51,7 +51,7 @@ class LeagueController extends Controller
      */
     public function edit(League $league)
     {
-        //
+        
     }
 
     /**
@@ -59,7 +59,8 @@ class LeagueController extends Controller
      */
     public function update(Request $request, League $league)
     {
-        //
+        $league -> update($request->all());
+        return response()->json($league);
     }
 
     /**
