@@ -12,7 +12,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        //
+        return Player::all();
     }
 
     /**
