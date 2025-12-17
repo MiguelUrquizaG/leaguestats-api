@@ -20,7 +20,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,7 +28,17 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $team = new Team();
+        $team->name = $request->name;
+        $team->logo = $request->logo;
+        $team->country_id = $request->country_id;
+        $team->league_id = $request->league_id;
+        $team->lost_matches = $request->lost_matches;
+        $team->won_matches = $request->won_matches;
+
+        $team->save();
+
+        return response()->json($team);
     }
 
     /**
@@ -36,7 +46,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        return Team::find($team->id);
     }
 
     /**
@@ -52,14 +62,15 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
-        //
+        $team -> update($request->all());
+        return response()->json($team);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(int $team)
     {
-        //
+        return Team::destroy($team);
     }
 }
