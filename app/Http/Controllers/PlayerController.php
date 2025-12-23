@@ -20,7 +20,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-            
+        
     }
 
     /**
@@ -28,7 +28,18 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $player = new Player();
+        $player->name = $request->name;
+        $player->photo = $request->photo;
+        $player->country_id = $request->country_id;
+        $player->team_id = $request->team_id;
+        $player->kda = $request->kda;
+        $player->position = $request->position;
+        $player->birth_date = $request->birth_date;
+
+        $player->save();
+
+        return response()->json($player);
     }
 
     /**
@@ -36,7 +47,7 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
-        //
+        return Player::find($player->id);
     }
 
     /**
@@ -52,14 +63,15 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
-        //
+        $player -> update($request->all());
+        return response()->json($player);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Player $player)
+    public function destroy(int $player)
     {
-        //
+        return Player::destroy($player);
     }
 }
