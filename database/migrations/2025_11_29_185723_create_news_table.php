@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('photo');
             $table->enum('type',['Transfer','New','Tutorial']);
+            $table->timestamps();
         });
     }
 

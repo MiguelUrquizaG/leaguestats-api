@@ -3,6 +3,7 @@ require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
 use App\Http\Controllers\TeamController;
@@ -29,5 +30,10 @@ Route::middleware('auth:sanctum') ->group(function(){
 Route::middleware('auth:sanctum') ->group(function(){
     Route::apiResource('players',PlayerController::class);
 });
+
+Route::middleware('auth:sanctum') ->group(function(){
+    Route::apiResource('news',NewsController::class);
+});
+
 
 

@@ -12,7 +12,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        
+        return news::all();
     }
 
     /**
@@ -28,7 +29,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new = new news();
+        $new->title = $request->title;
+        $new->description = $request->description;
+        $new->photo = $request->photo;
+        $new->type = $request->type;
+
+        $new->save();
+
+        return response()->json($new);
     }
 
     /**
@@ -36,7 +45,7 @@ class NewsController extends Controller
      */
     public function show(news $news)
     {
-        //
+        return news::find($news->id);
     }
 
     /**
@@ -52,14 +61,15 @@ class NewsController extends Controller
      */
     public function update(Request $request, news $news)
     {
-        //
+        $news -> update($request->all());
+        return response()->json($news);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(news $news)
+    public function destroy(int $news)
     {
-        //
+        return news::destroy($news);
     }
 }

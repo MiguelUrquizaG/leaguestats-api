@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('away_team_score');
             $table->boolean('is_active');
             $table->foreignId('league_id')->constrained('leagues')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
