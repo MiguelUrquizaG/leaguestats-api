@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('bets', function (Blueprint $table) {
             $table->id();
-            $table->double('bet_value_home_team');
-            $table->double('bet_value_away_team');
-            $table->foreignId('mvp_player')->constrained('players')->cascadeOnDelete();
+            $table->date('date');
+            $table->time('time');
+            $table->foreignId('league_id')->constrained('leagues')->cascadeOnDelete();
+            $table->foreignId('team1_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('team2_id')->constrained('teams')->cascadeOnDelete();
+            $table->double('team1_value');
+            $table->double('team2_value');
+            $table->text('instance');
+            $table->enum('status',['Active','Closed']);
             $table->timestamps();
         });
     }
