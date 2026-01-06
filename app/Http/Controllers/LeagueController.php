@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\League;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class LeagueController extends Controller
@@ -69,5 +70,11 @@ class LeagueController extends Controller
     public function destroy(int $league)
     {
         return League::destroy($league);
+    }
+
+    public function findTeamsByLeague($league_id){
+        $teams = Team::where('league_id',$league_id)->get();
+
+        return response()->json($teams);
     }
 }

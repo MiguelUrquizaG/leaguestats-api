@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('rol',['user','admin']);
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

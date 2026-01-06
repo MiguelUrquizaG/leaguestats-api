@@ -16,27 +16,32 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('countries',CountriesController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('countries', CountriesController::class);
 });
 
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('leagues',LeagueController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('leagues', LeagueController::class);
+    Route::get(
+        'leagues/{league}/teams',
+        [LeagueController::class, 'findTeamsByLeague']
+    );
 });
 
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('teams',TeamController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('teams', TeamController::class);
 });
 
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('players',PlayerController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('players', PlayerController::class);
 });
 
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('news',NewsController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('news', NewsController::class);
 });
-Route::middleware('auth:sanctum') ->group(function(){
-    Route::apiResource('bets',BetController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('bets', BetController::class);
+    Route::post('bets/calculate',[BetController::class,'calculate']);
 });
 
 

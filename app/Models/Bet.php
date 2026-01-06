@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bet extends Model
 {
-   use HasFactory;
+    use HasFactory;
 
-    protected $fillable=[
-        'bet_value_home_team',
-        'bet_value_away_team',
-        'mvp_player',
+    protected $fillable = [
+        'date',
+        'time',
+        'league_id',
+        'team1_id',
+        'team2_id',
+        'team1_value',
+        'team2_value',
+        'instance',
+        'status'
     ];
 }
