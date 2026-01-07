@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Game extends Model
 {
-   use HasFactory;
+    use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'home_team_id',
         'away_team_id',
         'max_games',

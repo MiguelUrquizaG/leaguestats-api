@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('home_team_id')->constrained('teams','id')->cascadeOnDelete();
             $table->foreignId('away_team_id')->constrained('teams','id')->cascadeOnDelete();
-            $table->integer('max_games');
+            $table->integer('max_games'); //Enum de BO1 BO2 BO5
             $table->integer('home_team_score');
             $table->integer('away_team_score');
             $table->boolean('is_active');

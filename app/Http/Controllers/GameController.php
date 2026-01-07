@@ -12,7 +12,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        return Game::all();
     }
 
     /**
@@ -28,7 +28,18 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $game = new Game();
+        $game ->home_team_id = $request->home_team_id;
+        $game->away_team_id = $request->away_team_id;
+        $game->max_games = $request ->max_games;
+        $game ->home_team_score = $request->home_team_score;
+        $game->away_team_score = $request->away_team_score;
+        $game->is_active = $request ->is_active;
+        $game->league_id = $request ->league_id;
+    
+        $game->save();
+
+        return response()->json($game);
     }
 
     /**
@@ -36,7 +47,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        return Game::find($game->id);
     }
 
     /**
@@ -52,14 +63,15 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        $game -> update($request->all());
+        return response()->json($game);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game $game)
+    public function destroy(int $game)
     {
-        //
+        return Game::destroy($game);
     }
 }

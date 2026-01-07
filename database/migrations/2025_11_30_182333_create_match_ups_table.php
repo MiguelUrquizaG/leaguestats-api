@@ -19,6 +19,8 @@ return new class extends Migration
             $table->double('home_team_gold');
             $table->integer('away_team_kills');
             $table->double('away_team_gold');
+            $table->enum('home_team_side',['Red','Blue']);
+            $table->enum('away_team_side',['Red','Blue']);
             $table->timestamps();
         });
     }

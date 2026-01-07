@@ -3,7 +3,9 @@ require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\MatchUpController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
@@ -42,6 +44,13 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('bets', BetController::class);
     Route::post('bets/calculate',[BetController::class,'calculate']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('games', GameController::class);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('match-ups', MatchUpController::class);
 });
 
 

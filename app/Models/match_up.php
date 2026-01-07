@@ -16,5 +16,7 @@ class match_up extends Model
         'home_team_gold',
         'away_team_kills',
         'away_team_gold',
+        'home_team_side',
+        'away_team_side'
     ];
 }
