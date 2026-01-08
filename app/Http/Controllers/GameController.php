@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\match_up;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -38,6 +39,14 @@ class GameController extends Controller
         $game->league_id = $request ->league_id;
     
         $game->save();
+
+        //$matchups = new match_up
+
+        /*
+        for ($i=0; $i < ; $i++) { 
+            # code...
+        }
+            */
 
         return response()->json($game);
     }
