@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\Game;
 use App\Models\match_up;
 use Illuminate\Http\Request;
@@ -47,6 +48,11 @@ class GameController extends Controller
             match_up::create(array_merge($matchup, [
                 'game_id' => $game->id
             ]));
+
+            $team = Team::find($matchup['winner_team_id']);
+            $team->won_matches++;
+            $team->save();
+
         }
 
 
