@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->integer('rated_matches');
             $table->integer('followers');
-            $table->enum('rol',['user','admin']);
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->boolean('banned');
             $table->timestamps();
         });
     }

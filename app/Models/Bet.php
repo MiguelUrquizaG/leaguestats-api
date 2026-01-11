@@ -18,6 +18,7 @@ class Bet extends Model
         'team1_value',
         'team2_value',
         'instance',
-        'status'
+        'status',
+        'winner_team_id'
     ];
 }

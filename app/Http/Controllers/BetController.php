@@ -39,6 +39,8 @@ class BetController extends Controller
         $bet->team2_value = $request->team2_value;
         $bet->instance = $request->instance;
         $bet->status = $request->status;
+        $bet->winner_team_id = $request->winner_team_id;
+        
 
         $bet->save();
 

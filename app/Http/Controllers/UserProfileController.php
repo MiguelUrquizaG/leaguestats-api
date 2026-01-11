@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
@@ -12,7 +13,7 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        //
+        return UserProfile::all();
     }
 
     /**
@@ -28,7 +29,19 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userProfile = new UserProfile();
+
+        $userProfile->username = $request->username;
+        $userProfile->rated_matches = $request->rated_matches;
+        $userProfile->followers = $request->followers;
+        $userProfile->country_id = $request->country_id;
+        $userProfile->user_id = $request->user_id;
+        $userProfile->banned = $request->banned;
+
+        $userProfile->save();
+
+        return response()->json($userProfile);
+
     }
 
     /**
@@ -61,5 +74,23 @@ class UserProfileController extends Controller
     public function destroy(UserProfile $userProfile)
     {
         //
+    }
+
+    public function findUser(int $idUser)
+    {
+        return User::find($idUser);
+    }
+
+    public function changeAccountStatus(int $id)
+    {
+        $user = UserProfile::find($id);
+
+        if ($user->banned) {
+            $user->banned = 0;
+        } else {
+            $user->banned = 1;
+        }
+
+        $user -> save();
     }
 }

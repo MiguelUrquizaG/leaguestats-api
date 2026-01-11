@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('team1_value');
             $table->double('team2_value');
             $table->text('instance');
+            $table->foreignId('winner_team_id')->constrained('teams')->cascadeOnDelete();
             $table->enum('status',['Active','Closed']);
             $table->timestamps();
         });

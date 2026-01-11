@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,15 +44,20 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('bets', BetController::class);
-    Route::post('bets/calculate',[BetController::class,'calculate']);
+    Route::post('bets/calculate', [BetController::class, 'calculate']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('games', GameController::class);
-    Route::get('games/{id}/matchups',[GameController::class,'findMatchByGameId']);
+    Route::get('games/{id}/matchups', [GameController::class, 'findMatchByGameId']);
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('match-ups', MatchUpController::class);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('usersProfile', UserProfileController::class);
+    Route::get('usersProfile/{id}/user', [UserProfileController::class, 'findUser']);
+    Route::put('usersProfile/{id}/status', [UserProfileController::class, 'changeAccountStatus']);
 });
 
 
