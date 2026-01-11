@@ -53,6 +53,10 @@ class GameController extends Controller
             $team->won_matches++;
             $team->save();
 
+            $team = Team::find($matchup['loser_team_id']);
+            $team->lost_matches++;
+            $team->save();
+
         }
 
 
@@ -81,6 +85,34 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         $game->update($request->all());
+
+        $matchups = $request->input('matchUpList', []);
+
+        
+        match_up::where('game_id', $game->id)->delete();
+
+        foreach ($matchups as $matchup) {
+            match_up::create(array_merge($matchup, [
+                'game_id' => $game->id
+            ]));
+
+            if (!empty($matchup['winner_team_id'])) {
+                $team = Team::find($matchup['winner_team_id']);
+                if ($team) {
+                    $team->won_matches++;
+                    $team->save();
+                }
+            }
+
+            if (!empty($matchup['loser_team_id'])) {
+                $team = Team::find($matchup['loser_team_id']);
+                if ($team) {
+                    $team->lost_matches++;
+                    $team->save();
+                }
+            }
+        }
+
         return response()->json($game);
     }
 
@@ -90,5 +122,24 @@ class GameController extends Controller
     public function destroy(int $game)
     {
         return Game::destroy($game);
+    }
+
+    public function findMatchByGameId(int $id)
+    {
+
+        $match_ups = match_up::all();
+
+        $response = [];
+
+        $response = collect();
+
+        foreach ($match_ups as $match) {
+            if ($match->game_id == $id) {
+                $response->push($match);
+            }
+        }
+
+        return $response;
+
     }
 }

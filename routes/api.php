@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('games', GameController::class);
+    Route::get('games/{id}/matchups',[GameController::class,'findMatchByGameId']);
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('match-ups', MatchUpController::class);

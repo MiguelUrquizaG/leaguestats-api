@@ -83,4 +83,6 @@ class MatchUpController extends Controller
     {
         return match_up::destroy($match_up);
     }
+
+
 }
