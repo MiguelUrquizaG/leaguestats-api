@@ -32,7 +32,11 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $country = new Countries();
+        $country->name = $request->name;
+        $country->flag = $request->flag;
+
+        $country->save();
     }
 
     /**
@@ -48,15 +52,16 @@ class CountriesController extends Controller
      */
     public function edit(countries $countries)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, countries $countries)
+    public function update(Request $request, Countries $country)
     {
-        //
+        $country -> update(attributes: $request->all());
+        return response()->json($country);
     }
 
     /**

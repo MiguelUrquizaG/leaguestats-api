@@ -38,6 +38,8 @@ class MatchUpController extends Controller
         $matchup->away_team_gold = $request->away_team_gold;
         $matchup->home_team_side = $request->home_team_side;
         $matchup->away_team_side = $request->away_team_side;
+        
+        $matchup -> save();
 
 
         // $team = Team::find($matchup->winner_team_id);
