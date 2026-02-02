@@ -1,0 +1,1382 @@
+{
+	"info": {
+		"_postman_id": "06f75ce6-d7fc-4240-a102-1070f92154d7",
+		"name": "ProyectoInterdisciplinar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48376105",
+		"_collection_link": "https://urquiza-gamig24-1679476.postman.co/workspace/Miguel-Urquiza-Garc%C3%ADa's-Workspa~aecedbe3-8b1d-4beb-82a0-bb813dda296a/collection/48376105-06f75ce6-d7fc-4240-a102-1070f92154d7?action=share&source=collection_link&creator=48376105"
+	},
+	"item": [
+		{
+			"name": "Countries",
+			"item": [
+				{
+					"name": "Countries List",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}/countries",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}/countries/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/countries/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Corea\",\r\n    \"flag\": \"Corea\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/countries/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"countries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"España\",\r\n    \"flag\": \"Corea\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/countries",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"countries"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"pm.environment.set(\"TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"raul@email.com\",\"password\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/login",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login German",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"email\":\"raul@email.com\",\"password\":\"12345678\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_BASE_URL}}/login",
+									"host": [
+										"{{API_BASE_URL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Login Raul",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"email\":\"raul@email.com\",\"password\":\"12345678\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_BASE_URL}}/login",
+									"host": [
+										"{{API_BASE_URL}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"pm.environment.set(\"TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Raul\",\"email\":\"raul@email.com\",\"password\":\"12345678\",\"password_confirmation\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/register",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepe\",\"email\":\"pepe.gamig24@triana.es\",\"password\":\"12345678\",\"password_confirmation\":\"12345678\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_BASE_URL}}/register",
+									"host": [
+										"{{API_BASE_URL}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Register (Miguel)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();",
+									"pm.environment.set(\"TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Miguel\",\"email\":\"urquiza.gamig24@triana.es\",\"password\":\"12345678\",\"password_confirmation\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/register",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leagues",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post League",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"LEC\",\r\n    \"logo\":\"ddasdsad\",\r\n    \"country_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Prueba\",\r\n    \"logo\":\"No se si va\",\r\n    \"country_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Creado\",\r\n    \"logo\":\"Nuevo\",\r\n    \"country_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get League Teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/leagues/2/teams",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"leagues",
+								"2",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"T1\",\r\n    \"logo\":\"logo\",\r\n    \"country_id\":1,\r\n    \"lost_matches\":5,\r\n    \"won_matches\":5,\r\n    \"league_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/teams",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"prueba2\",\r\n    \"logo\":\"logo\",\r\n    \"country_id\":1,\r\n    \"lost_matches\":23,\r\n    \"won_matches\":3,\r\n    \"league_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/teams",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/teams/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"teams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"nuevo\",\r\n    \"logo\":\"equipo\",\r\n    \"country_id\":1,\r\n    \"lost_matches\":23,\r\n    \"won_matches\":3,\r\n    \"league_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/teams/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"teams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/players",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Chovy\",\r\n    \"photo\": \"https://media.trackingthepros.com/profile/p545.png\",\r\n    \"team_id\": 2,\r\n    \"kda\": \"23.00\",\r\n    \"position\": \"Mid\",\r\n    \"birth_date\": \"2005-12-06\",\r\n    \"country_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/players",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/players/4",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"players",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Faker\",\r\n    \"photo\": \"https://media.trackingthepros.com/profile/p545.png\",\r\n    \"team_id\": 2,\r\n    \"kda\": \"23.00\",\r\n    \"position\": \"Jungle\",\r\n    \"birth_date\": \"2005-12-06\",\r\n    \"country_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/players/4",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"players",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/players/4",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"players",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Raul\",\"email\":\"raul@email.com\",\"password\":\"12345678\",\"password_confirmation\":\"12345678\"}"
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/news",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"title\":\"pelea\",\r\n \"description\":\"Se han pegao dos\",\r\n \"photo\":\"photo\",\r\n \"type\":\"Transfer\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/news",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/news/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/news/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"title\":\"pelea\",\r\n \"description\":\"Al final no se han pegao\",\r\n \"photo\":\"photo\",\r\n \"type\":\"Transfer\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/news/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bets",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/bets",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"bets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2005-12-06\",\r\n    \"time\":\"10:00\",\r\n    \"league_id\": 1,\r\n    \"team1_id\": 2,\r\n    \"team2_id\": 3,\r\n    \"team1_value\": \"1.02\",\r\n    \"team2_value\": \"2.32\",\r\n    \"instance\":\"Spring Split\",\r\n    \"status\":\"Active\",\r\n    \"winner_team_id\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/bets",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"bets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Values",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"team1_id\":2,\r\n    \"team2_id\":3\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/bets/calculate",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"bets",
+								"calculate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2006-12-06\",\r\n    \"time\":\"10:00\",\r\n    \"league_id\": 1,\r\n    \"team1_id\": 3,\r\n    \"team2_id\": 2,\r\n    \"team1_value\": \"1.02\",\r\n    \"team2_value\": \"2.32\",\r\n    \"instance\":\"LCK Split\",\r\n    \"status\":\"Closed\",\r\n    \"winner_team_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/bets/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"bets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/bets/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"bets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Games",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/games",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"home_team_id\":2,\r\n    \"away_team_id\":3,\r\n    \"max_games\":5,\r\n    \"home_team_score\":2,\r\n    \"away_team_score\":3,\r\n    \"is_active\":1,\r\n    \"league_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/games",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"home_team_id\":2,\r\n    \"away_team_id\":3,\r\n    \"max_games\":3,\r\n    \"home_team_score\":1,\r\n    \"away_team_score\":2,\r\n    \"is_active\":0,\r\n    \"league_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/games/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/games/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/games/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"games",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MatchUp",
+			"item": [
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/match-ups",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"match-ups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"game_id\":1,\r\n    \"winner_team_id\":2,\r\n    \"home_team_kills\":32,\r\n    \"away_team_kills\":12,\r\n    \"home_team_gold\":32111,\r\n    \"away_team_gold\":21233,\r\n    \"home_team_side\":\"Blue\",\r\n    \"away_team_side\":\"Red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/match-ups",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"match-ups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"game_id\":1,\r\n    \"winner_team_id\":2,\r\n    \"home_team_kills\":1,\r\n    \"away_team_kills\":1,\r\n    \"home_team_gold\":32111,\r\n    \"away_team_gold\":21233,\r\n    \"home_team_side\":\"Red\",\r\n    \"away_team_side\":\"Blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/match-ups/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"match-ups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/match-ups/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"match-ups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/match-ups/1",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"match-ups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/usersProfile",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"usersProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"lanakappo\",\r\n    \"rated_matches\":1,\r\n    \"followers\":123,\r\n    \"country_id\":1,\r\n    \"user_id\":2,\r\n    \"banned\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE_URL}}/usersProfile",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"usersProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE_URL}}/usersProfile/3/user",
+							"host": [
+								"{{API_BASE_URL}}"
+							],
+							"path": [
+								"usersProfile",
+								"3",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
