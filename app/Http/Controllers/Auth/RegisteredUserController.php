@@ -32,6 +32,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->string('password')),
         ]);
 
+        $user->country_id = $request->country_id;
+
         event(new Registered($user));
 
         Auth::login($user);
@@ -39,7 +41,7 @@ class RegisteredUserController extends Controller
         $token = $user->createToken('api')->plainTextToken;
         return response([
             'token' => $token,
-            'user'  => $user,
+            'user' => $user,
         ], 201);
     }
 }
