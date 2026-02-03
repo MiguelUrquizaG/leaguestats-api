@@ -16,5 +16,8 @@ class UserProfile extends Model
         'country_id',
         'user_id',
         'banned',
+        'team_id',
+        'league_id',
+        'isPremium'
     ];
 }

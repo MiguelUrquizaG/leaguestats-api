@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->boolean('banned');
+            $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('league_id')->constrained('leagues')->cascadeOnDelete();
+            $table->boolean('isPremium');
             $table->timestamps();
         });
     }

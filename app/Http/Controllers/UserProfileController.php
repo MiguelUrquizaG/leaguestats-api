@@ -37,6 +37,9 @@ class UserProfileController extends Controller
         $userProfile->country_id = $request->country_id;
         $userProfile->user_id = $request->user_id;
         $userProfile->banned = $request->banned;
+        $userProfile->team_id=$request->team_id;
+        $userProfile -> league_id = $request -> league_id;
+        $userProfile -> isPremium = $request -> isPremium;
 
         $userProfile->save();
 

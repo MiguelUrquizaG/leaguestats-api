@@ -12,14 +12,17 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        UserProfile::create([
-            'user_id' => $user->id,
-            'username' => $user->name,
-            'rated_matches' => 0,
-            'followers' => 0,
-            'country_id' => $user->country_id ?? 1,
-            'banned' => false,
-        ]);
+        // UserProfile::create([
+        //     'user_id' => $user->id,
+        //     'username' => $user->name,
+        //     'rated_matches' => 0,
+        //     'followers' => 0,
+        //     'country_id' => $user->country_id ?? 1,
+        //     'banned' => false,
+        //     'team_id'=>$user->team_id??1,
+        //     'league_id'=>$user->league_id??1,
+        //     'isPremium'=>false
+        // ]);
     }
 
     /**
