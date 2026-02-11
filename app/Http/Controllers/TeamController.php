@@ -35,6 +35,7 @@ class TeamController extends Controller
         $team->league_id = $request->league_id;
         $team->lost_matches = $request->lost_matches;
         $team->won_matches = $request->won_matches;
+        $team->team_wallpaper = $request->team_wallpaper;
 
         $team->save();
 
