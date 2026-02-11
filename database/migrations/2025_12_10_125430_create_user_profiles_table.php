@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->foreignId('team_id')->nullable()->constrained('teams')->nullOnDelete();
             $table->foreignId('league_id')->nullable()->constrained('leagues')->nullOnDelete();
             $table->boolean('isPremium');
+            $table->double('balance');
             $table->timestamps();
         });
     }

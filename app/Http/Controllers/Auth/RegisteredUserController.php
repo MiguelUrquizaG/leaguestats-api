@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
             'team_id' => $request->team_id ?? null,
             'league_id' => $request->league_id ?? null,
             'isPremium' => $request->isPremium ?? false,
+            'balance' => $request->balance ?? 0
         ]);
 
         event(new Registered($user));

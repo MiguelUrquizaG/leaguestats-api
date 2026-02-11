@@ -18,6 +18,7 @@ class UserProfile extends Model
         'banned',
         'team_id',
         'league_id',
-        'isPremium'
+        'isPremium',
+        'balance'
     ];
 }
