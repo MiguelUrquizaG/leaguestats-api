@@ -42,10 +42,10 @@ class RegisteredUserController extends Controller
             'username' => $user->name,
             'rated_matches' => 0,
             'followers' => 0,
-            'country_id' => $request->country_id ?? 1,
+            'country_id' => $request->country_id ?? null,
             'banned' => $request->banned ?? false,
-            'team_id' => $request->team_id ?? 1,
-            'league_id' => $request->league_id ?? 1,
+            'team_id' => $request->team_id ?? null,
+            'league_id' => $request->league_id ?? null,
             'isPremium' => $request->isPremium ?? false,
         ]);
 

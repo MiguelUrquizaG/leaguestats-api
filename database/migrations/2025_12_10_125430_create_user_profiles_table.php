@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,11 +15,11 @@ return new class extends Migration
             $table->string('username');
             $table->integer('rated_matches');
             $table->integer('followers');
-            $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
+            $table->foreignId('country_id')->nullable()->constrained('countries')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->boolean('banned');
-            $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
-            $table->foreignId('league_id')->constrained('leagues')->cascadeOnDelete();
+            $table->foreignId('team_id')->nullable()->constrained('teams')->nullOnDelete();
+            $table->foreignId('league_id')->nullable()->constrained('leagues')->nullOnDelete();
             $table->boolean('isPremium');
             $table->timestamps();
         });
