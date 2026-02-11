@@ -1,9 +1,13 @@
 <?php
 require __DIR__ . '/auth.php';
 
+use App\Http\Controllers\AbilitiesController;
+use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\BetController;
+use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\HabilidadesController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\MatchUpController;
 use App\Http\Controllers\NewsController;
@@ -11,6 +15,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserProfileController;
+use App\Models\Ability;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +63,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('usersProfile', UserProfileController::class);
     Route::get('usersProfile/{id}/user', [UserProfileController::class, 'findUser']);
     Route::put('usersProfile/{id}/status', [UserProfileController::class, 'changeAccountStatus']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('abilities', AbilityController::class);
+});
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('champions', ChampionController::class);
 });
 
 
