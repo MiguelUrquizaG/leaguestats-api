@@ -17,5 +17,7 @@ class Game extends Model
         'away_team_score',
         'is_active',
         'league_id',
+        'mvp_id',
+        'date'
     ];
 }
