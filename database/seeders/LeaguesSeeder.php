@@ -33,6 +33,64 @@ class LeaguesSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
+            [
+                'name' => 'LCK',
+                'logo' => '',
+                'country_id' => $countries['Corea del Sur'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'LPL',
+                'logo' => '',
+                'country_id' => $countries['China'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'PCS',
+                'logo' => '',
+                'country_id' => $countries['Sudeste Asiático'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'CBLOL',
+                'logo' => '',
+                'country_id' => $countries['Brasil'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'LCO',
+                'logo' => '',
+                'country_id' => $countries['Oceanía'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+
+            // Eventos internacionales
+            [
+                'name' => 'World Championship',
+                'logo' => '',
+                'country_id' => $countries['Indefinido'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Mid-Season Invitational',
+                'logo' => '',
+                'country_id' => $countries['Indefinido'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'First Stand Tournament',
+                'logo' => '',
+                'country_id' => $countries['Indefinido'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
         ];
 
         DB::table('leagues')->insert($leagues);
