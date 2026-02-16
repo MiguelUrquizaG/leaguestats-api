@@ -12,7 +12,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::with(['league', 'country'])->get();
+        $teams = Team::with(['league', 'country', 'players'])->get();
         return response()->json($teams);
     }
 
@@ -48,7 +48,8 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return Team::find($team->id);
+        $team->load(['league', 'country', 'players']); 
+        return response()->json($team);
     }
 
     /**

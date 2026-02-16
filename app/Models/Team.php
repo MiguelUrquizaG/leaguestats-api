@@ -29,4 +29,9 @@ class Team extends Model
         return $this->belongsTo(Countries::class);
     }
 
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
+
 }

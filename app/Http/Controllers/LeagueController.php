@@ -13,7 +13,8 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        return League::all();
+        $leagues = League::with(['country'])->get();
+        return response()->json($leagues);
     }
 
     /**

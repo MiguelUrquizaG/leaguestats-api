@@ -20,4 +20,15 @@ class Game extends Model
         'mvp_id',
         'date'
     ];
+
+    public function homeTeam()
+    {
+        return $this->belongsTo(Team::class, 'home_team_id');
+    }
+
+
+    public function awayTeam()
+    {
+        return $this->belongsTo(Team::class, 'away_team_id');
+    }
 }

@@ -14,7 +14,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        return Game::all();
+        $games = Game::with(['homeTeam', 'awayTeam'])->get();
+        return response()->json($games);
     }
 
     /**

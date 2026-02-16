@@ -14,4 +14,9 @@ class League extends Model
         'logo',
         'country_id',
     ];
+
+    public function country()
+    {
+        return $this->belongsTo(Countries::class);
+    }
 }
