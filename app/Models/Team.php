@@ -19,4 +19,14 @@ class Team extends Model
         'team_wallpaper'
     ];
 
+    public function league()
+    {
+        return $this->belongsTo(League::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Countries::class);
+    }
+
 }

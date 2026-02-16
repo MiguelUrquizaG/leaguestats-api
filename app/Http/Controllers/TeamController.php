@@ -12,7 +12,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return Team::all();
+        $teams = Team::with(['league', 'country'])->get();
+        return response()->json($teams);
     }
 
     /**
@@ -63,7 +64,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
-        $team -> update($request->all());
+        $team->update($request->all());
         return response()->json($team);
     }
 
