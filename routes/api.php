@@ -61,9 +61,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('match-ups', MatchUpController::class);
 });
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('usersProfile/search/{email}', [UserProfileController::class, 'findByEmail']);
     Route::apiResource('usersProfile', UserProfileController::class);
     Route::get('usersProfile/{id}/user', [UserProfileController::class, 'findUser']);
     Route::put('usersProfile/{id}/status', [UserProfileController::class, 'changeAccountStatus']);
+    
 });
 
 Route::middleware('auth:sanctum')->group(function () {

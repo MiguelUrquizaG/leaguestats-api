@@ -17,7 +17,7 @@ class UserProfileController extends Controller
         // return UserProfile::all();
 
         // Devuelves los perfiles con sus relaciones ya cargadas:
-        return UserProfile::with(['country', 'team', 'league','user'])->get();
+        return UserProfile::with(['country', 'team', 'league', 'user'])->get();
     }
 
     /**
@@ -55,10 +55,9 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserProfile $userProfile)
+    public function show(UserProfile $usersProfile)
     {
-        $userProfile->load(['league', 'country', 'team','user']); 
-        return response()->json($userProfile);
+        return response()->json($usersProfile);
     }
 
     /**
@@ -101,5 +100,19 @@ class UserProfileController extends Controller
         }
 
         $user->save();
+    }
+
+    public function findByEmail(string $email)
+    {
+        // Buscamos el perfil que TENGA un usuario con ese email
+        $profile = UserProfile::whereHas('user', function ($query) use ($email) {
+            $query->where('email', $email);
+        })->with(['user', 'country', 'team'])->first(); // Cargamos relaciones para que no venga vacío
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado para ese email'], 404);
+        }
+
+        return response()->json($profile);
     }
 }
