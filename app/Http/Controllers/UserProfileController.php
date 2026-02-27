@@ -17,7 +17,7 @@ class UserProfileController extends Controller
         // return UserProfile::all();
 
         // Devuelves los perfiles con sus relaciones ya cargadas:
-        return UserProfile::with(['country', 'team', 'league'])->get();
+        return UserProfile::with(['country', 'team', 'league','user'])->get();
     }
 
     /**
@@ -57,7 +57,8 @@ class UserProfileController extends Controller
      */
     public function show(UserProfile $userProfile)
     {
-        //
+        $userProfile->load(['league', 'country', 'team','user']); 
+        return response()->json($userProfile);
     }
 
     /**

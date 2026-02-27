@@ -13,6 +13,7 @@ use App\Http\Controllers\MatchUpController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserProfileController;
 use App\Models\Ability;
@@ -72,6 +73,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('champions', ChampionController::class);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('settings', SettingController::class);
 });
 
 
