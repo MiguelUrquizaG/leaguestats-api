@@ -18,4 +18,16 @@ class Player extends Model
         'birth_date',
         'country_id',
     ];
+
+    // app/Models/Player.php
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Countries::class);
+    }
 }

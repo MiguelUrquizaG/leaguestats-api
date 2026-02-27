@@ -12,7 +12,9 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return Player::all();
+        $players = Player::with(['team', 'country'])->get();
+
+        return response()->json($players);
     }
 
     /**
@@ -20,7 +22,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -63,7 +65,7 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
-        $player -> update($request->all());
+        $player->update($request->all());
         return response()->json($player);
     }
 

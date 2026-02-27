@@ -26,7 +26,11 @@ class DatabaseSeeder extends Seeder
             CountriesSeeder::class,
             LeaguesSeeder::class,
             TeamsSeeder::class,
-            UsersSeeder::class
+            PlayersSeeder::class, // Necesario antes de Games
+            NewsSeeder::class,
+            GamesAndMatchUpsSeeder::class,
+            BetsSeeder::class,
+            UsersSeeder::class,
         ]);
     }
 }
