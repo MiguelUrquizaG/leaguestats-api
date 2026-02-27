@@ -13,7 +13,11 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        return UserProfile::all();
+        // En lugar de devolver solo los perfiles:
+        // return UserProfile::all();
+
+        // Devuelves los perfiles con sus relaciones ya cargadas:
+        return UserProfile::with(['country', 'team', 'league'])->get();
     }
 
     /**

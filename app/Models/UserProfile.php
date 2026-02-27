@@ -21,4 +21,28 @@ class UserProfile extends Model
         'isPremium',
         'balance'
     ];
+
+    public function user()
+    {
+        // Un perfil pertenece a un usuario base
+        return $this->belongsTo(User::class);
+    }
+
+    public function country()
+    {
+        // Un perfil pertenece a un país
+        return $this->belongsTo(Countries::class);
+    }
+
+    public function team()
+    {
+        // Un perfil tiene un equipo favorito/asociado
+        return $this->belongsTo(Team::class);
+    }
+
+    public function league()
+    {
+        // Un perfil sigue a una liga
+        return $this->belongsTo(League::class);
+    }
 }

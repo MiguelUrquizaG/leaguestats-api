@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountriesSeeder::class,
             LeaguesSeeder::class,
-            TeamsSeeder::class
+            TeamsSeeder::class,
+            UsersSeeder::class
         ]);
     }
 }
