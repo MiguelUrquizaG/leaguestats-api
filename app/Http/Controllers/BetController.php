@@ -13,7 +13,8 @@ class BetController extends Controller
      */
     public function index()
     {
-        return Bet::all();
+        $bets = Bet::with(['league', 'team1', 'team2', 'winnerTeam'])->get();
+        return response()->json($bets);
     }
 
     /**
@@ -40,7 +41,7 @@ class BetController extends Controller
         $bet->instance = $request->instance;
         $bet->status = $request->status;
         $bet->winner_team_id = $request->winner_team_id;
-        
+
 
         $bet->save();
 
@@ -52,7 +53,9 @@ class BetController extends Controller
      */
     public function show(Bet $bet)
     {
-        return Bet::find($bet->id);
+        $bet->load(['league', 'team1', 'team2', 'winnerTeam']);
+
+        return $bet;
     }
 
     /**
@@ -100,7 +103,8 @@ class BetController extends Controller
         ];
     }
 
-    public function calculate(Request $request){
+    public function calculate(Request $request)
+    {
         $data = $this->calculateValues(
             $request->team1_id,
             $request->team2_id
