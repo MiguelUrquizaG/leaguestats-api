@@ -24,13 +24,16 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('countries', [CountriesController::class, 'index']);
+Route::get('leagues', [LeagueController::class, 'index']);
+Route::get('teams', [TeamController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('countries', CountriesController::class);
+    Route::apiResource('countries', CountriesController::class)->except(['index']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('leagues', LeagueController::class);
+    Route::apiResource('leagues', LeagueController::class)->except(['index']);
     Route::get(
         'leagues/{league}/teams',
         [LeagueController::class, 'findTeamsByLeague']
@@ -38,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('teams', TeamController::class);
+    Route::apiResource('teams', TeamController::class)->except(['index']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
