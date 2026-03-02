@@ -18,6 +18,15 @@ class BetController extends Controller
         return response()->json($bets);
     }
 
+    public function active()
+    {
+        $bets = Bet::with(['league', 'team1', 'team2', 'winnerTeam'])
+            ->whereIn('status', ['Active', 'active'])
+            ->get();
+
+        return response()->json($bets);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -127,5 +136,57 @@ class BetController extends Controller
         $userBetsController->distributePrizes($bet);
 
         return response()->json($bet);
+    }
+
+    public function checkUserBet($betId)
+    {
+        // Buscamos la apuesta del usuario para este partido
+        $userBet = \DB::table('user_bets')
+            ->where('user_id', auth()->id())
+            ->where('bet_id', $betId)
+            ->first();
+
+        if ($userBet) {
+            return response()->json([
+                'total_bet' => $userBet->amount,
+                'winner_selected' => $userBet->winner_selected // <-- AÑADIMOS ESTO
+            ], 200);
+        }
+
+        // Si no hay apuesta, devolvemos null
+        return response()->json(['total_bet' => 0, 'winner_selected' => null], 200);
+    }
+    public function withdraw($betId)
+    {
+        $user = auth()->user();
+
+        // 1. Buscamos la apuesta de este usuario
+        $userBet = \DB::table('user_bets')
+            ->where('user_id', $user->id)
+            ->where('bet_id', $betId)
+            ->first();
+
+        if (!$userBet) {
+            return response()->json(['message' => 'No se encontró la apuesta'], 404);
+        }
+
+        // 2. ¡AQUÍ ESTÁ EL ARREGLO! Buscamos su perfil en lugar del user normal
+        // Asegúrate de que el modelo se llame UserProfile, si se llama Profile pon \App\Models\Profile
+        $userProfile = \App\Models\UserProfile::where('user_id', $user->id)->first();
+
+        if ($userProfile) {
+            $userProfile->balance += $userBet->amount;
+            $userProfile->save();
+        } else {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        // 3. Eliminamos el registro de la apuesta
+        \DB::table('user_bets')
+            ->where('user_id', $user->id)
+            ->where('bet_id', $betId)
+            ->delete();
+
+        return response()->json(['message' => 'Apuesta retirada y saldo devuelto'], 200);
     }
 }

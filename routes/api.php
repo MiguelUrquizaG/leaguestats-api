@@ -54,9 +54,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('news', NewsController::class);
 });
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('bets/active', [BetController::class, 'active']);
     Route::apiResource('bets', BetController::class);
     Route::post('bets/calculate', [BetController::class, 'calculate']);
     Route::post('bets/close/{id}', [BetController::class, 'setWinner']);
+
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -89,6 +91,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('usersProfile/deposit', [UserProfileController::class, 'deposit']);
+    Route::middleware('auth:sanctum')->post('/userBets/withdraw/{betId}', [BetController::class, 'withdraw']);
+    Route::middleware('auth:sanctum')->get('/userBets/check/{betId}', [BetController::class, 'checkUserBet']);
     Route::apiResource('userBets', controller: UserBetsController::class);
     Route::get('userBets/{userId}/bets', [UserBetsController::class, 'findByUserId']);
 });

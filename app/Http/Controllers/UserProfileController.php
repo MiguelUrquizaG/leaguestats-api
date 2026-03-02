@@ -115,4 +115,27 @@ class UserProfileController extends Controller
 
         return response()->json($profile);
     }
+    public function deposit(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1'
+        ]);
+
+        $user = auth()->user();
+
+        // Buscamos el perfil usando el modelo (ajusta el nombre si es distinto)
+        $userProfile = UserProfile::where('user_id', $user->id)->first();
+
+        if ($userProfile) {
+            $userProfile->balance += $request->amount;
+            $userProfile->save();
+
+            return response()->json([
+                'message' => 'Saldo añadido correctamente',
+                'balance' => $userProfile->balance
+            ], 200);
+        }
+
+        return response()->json(['message' => 'Perfil no encontrado'], 404);
+    }
 }
