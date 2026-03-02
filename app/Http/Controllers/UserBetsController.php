@@ -46,16 +46,9 @@ class UserBetsController extends Controller
      */
     public function show(UserBets $userBet)
     {
-        $userBet->load([
-            'user',
-            'bet',
-            'bet.team1',
-            'bet.team2',
-            'bet.winnerTeam',
-            'bet.league'
-        ]);
 
-        // $userBet->load(['user', 'bet']);
+
+        $userBet->load(['user', 'bet']);
         return response()->json($userBet);
     }
 
@@ -85,15 +78,14 @@ class UserBetsController extends Controller
 
     public function findByUserId(int $userId)
     {
-        $userBets = UserBets::all();
+        $userBets = UserBets::with([
+            'bet.league',
+            'bet.team1',
+            'bet.team2',
+            'bet.winnerTeam',
+        ])->where('user_id', $userId)->get();
 
-        foreach ($userBets as $userBet) {
-            if ($userBet->user_id == $userId) {
-                $userBet->load(['bet']);
-                return response()->json($userBet);
-            }
-        }
-
-        return response()->json();
+        return response()->json($userBets);
     }
+
 }
