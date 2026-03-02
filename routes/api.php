@@ -15,6 +15,8 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserBetController;
+use App\Http\Controllers\UserBetsController;
 use App\Http\Controllers\UserProfileController;
 use App\Models\Ability;
 use Illuminate\Http\Request;
@@ -83,6 +85,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('settings', SettingController::class);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('userBets', controller: UserBetsController::class);
+    Route::get('userBets/{userId}/bets', [UserBetsController::class, 'findByUserId']);
 });
 
 
