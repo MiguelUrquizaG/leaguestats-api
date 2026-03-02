@@ -9,7 +9,9 @@ class UserBets extends Model
     protected $fillable = [
         'user_id',
         'bet_id',
-        'amount'
+        'amount',
+        'awarded',
+        'winner_selected'
     ];
 
     public function user()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bet;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserBetsController;
 
 class BetController extends Controller
 {
@@ -120,6 +121,10 @@ class BetController extends Controller
         $bet->status = 'closed';
         $bet->winner_team_id = $request->winner_team_id;
         $bet->save();
+
+        // Distribuir premios a los usuarios que ganaron
+        $userBetsController = new UserBetsController();
+        $userBetsController->distributePrizes($bet);
 
         return response()->json($bet);
     }
