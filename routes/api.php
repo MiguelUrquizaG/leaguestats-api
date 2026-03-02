@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('bets', BetController::class);
     Route::post('bets/calculate', [BetController::class, 'calculate']);
+    Route::post('bets/close/{id}', [BetController::class, 'setWinner']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

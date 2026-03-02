@@ -113,4 +113,14 @@ class BetController extends Controller
 
         return response()->json($data);
     }
+
+    public function setWinner(Request $request)
+    {
+        $bet = Bet::find($request->id);
+        $bet->status = 'closed';
+        $bet->winner_team_id = $request->winner_team_id;
+        $bet->save();
+
+        return response()->json($bet);
+    }
 }
