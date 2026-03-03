@@ -91,6 +91,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/usersProfile/subscribe-premium', [UserProfileController::class, 'subscribePremium']);
     Route::post('usersProfile/deposit', [UserProfileController::class, 'deposit']);
     Route::middleware('auth:sanctum')->post('/userBets/withdraw/{betId}', [BetController::class, 'withdraw']);
     Route::middleware('auth:sanctum')->get('/userBets/check/{betId}', [BetController::class, 'checkUserBet']);

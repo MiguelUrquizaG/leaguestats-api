@@ -138,4 +138,29 @@ class UserProfileController extends Controller
 
         return response()->json(['message' => 'Perfil no encontrado'], 404);
     }
+    public function subscribePremium(Request $request)
+    {
+        $user = $request->user();
+
+        $profile = UserProfile::where('user_id', $user->id)->first();
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        if ((int) $profile->isPremium === 1) {
+            return response()->json(['message' => 'El usuario ya es premium'], 409);
+        }
+
+        // Opcional: validar cobro aquí antes de activar premium
+        // $premiumPrice = Setting::where('key', 'premium_price')->value('value');
+
+        $profile->isPremium = 1;
+        $profile->save();
+
+        return response()->json([
+            'message' => 'Premium activado correctamente',
+            'isPremium' => 1
+        ], 200);
+    }
 }
