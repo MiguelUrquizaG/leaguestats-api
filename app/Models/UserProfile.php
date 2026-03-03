@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class UserProfile extends Model
 {
@@ -44,5 +45,15 @@ class UserProfile extends Model
     {
         // Un perfil sigue a una liga
         return $this->belongsTo(League::class);
+    }
+
+    public function likedNewsComments(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            NewsComment::class,
+            'news_comment_likes',
+            'user_profile_id',
+            'news_comment_id'
+        )->withTimestamps();
     }
 }

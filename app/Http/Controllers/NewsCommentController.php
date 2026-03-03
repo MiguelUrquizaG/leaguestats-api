@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\NewsComment;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsCommentController extends Controller
 {
@@ -148,23 +149,69 @@ class NewsCommentController extends Controller
 
     public function like(NewsComment $newsComment)
     {
-        $newsComment->increment('likes');
+        $profile = UserProfile::where('user_id', request()->user()->id)->first();
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        $alreadyLiked = $newsComment->likedByUsers()
+            ->where('user_profile_id', $profile->id)
+            ->exists();
+
+        if ($alreadyLiked) {
+            return response()->json([
+                'message' => 'Ya diste like a este comentario',
+                'likes' => $newsComment->likes,
+            ], 409);
+        }
+
+        $likes = DB::transaction(function () use ($newsComment, $profile) {
+            $newsComment->likedByUsers()->attach($profile->id);
+
+            $currentLikes = $newsComment->likedByUsers()->count();
+            $newsComment->update(['likes' => $currentLikes]);
+
+            return $currentLikes;
+        });
 
         return response()->json([
             'message' => 'Like añadido',
-            'likes' => $newsComment->fresh()->likes,
+            'likes' => $likes,
         ], 200);
     }
 
     public function unlike(NewsComment $newsComment)
     {
-        if ($newsComment->likes > 0) {
-            $newsComment->decrement('likes');
+        $profile = UserProfile::where('user_id', request()->user()->id)->first();
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
         }
+
+        $alreadyLiked = $newsComment->likedByUsers()
+            ->where('user_profile_id', $profile->id)
+            ->exists();
+
+        if (!$alreadyLiked) {
+            return response()->json([
+                'message' => 'No habías dado like a este comentario',
+                'likes' => $newsComment->likes,
+            ], 409);
+        }
+
+        $likes = DB::transaction(function () use ($newsComment, $profile) {
+            $newsComment->likedByUsers()->detach($profile->id);
+
+            $currentLikes = $newsComment->likedByUsers()->count();
+            $newsComment->update(['likes' => $currentLikes]);
+
+            return $currentLikes;
+        });
 
         return response()->json([
             'message' => 'Like quitado',
-            'likes' => $newsComment->fresh()->likes,
+            'likes' => $likes,
         ], 200);
     }
 }
