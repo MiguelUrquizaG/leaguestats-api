@@ -10,6 +10,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\HabilidadesController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\MatchUpController;
+use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SecuenciaController;
@@ -51,8 +52,20 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('news/{newsId}/comments', [NewsCommentController::class, 'findByNewsId']);
+    Route::post('news/{newsId}/comments', [NewsCommentController::class, 'storeByNews']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('news', NewsController::class);
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('news-comments', NewsCommentController::class)->except(['create', 'edit']);
+    Route::post('news-comments/{newsComment}/like', [NewsCommentController::class, 'like']);
+    Route::post('news-comments/{newsComment}/unlike', [NewsCommentController::class, 'unlike']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('bets/active', [BetController::class, 'active']);
     Route::apiResource('bets', BetController::class);
