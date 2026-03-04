@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('news-comments/liked', [NewsCommentController::class, 'findLikedByMe']);
     Route::apiResource('news-comments', NewsCommentController::class)->except(['create', 'edit']);
     Route::post('news-comments/{newsComment}/like', [NewsCommentController::class, 'like']);
     Route::post('news-comments/{newsComment}/unlike', [NewsCommentController::class, 'unlike']);

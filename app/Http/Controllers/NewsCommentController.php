@@ -93,6 +93,22 @@ class NewsCommentController extends Controller
         return response()->json($comments);
     }
 
+    public function findLikedByMe(Request $request)
+    {
+        $profile = UserProfile::where('user_id', $request->user()->id)->first();
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        $comments = $profile->likedNewsComments()
+            ->with(['news', 'userProfile.user'])
+            ->latest('news_comment_likes.created_at')
+            ->get();
+
+        return response()->json($comments);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
