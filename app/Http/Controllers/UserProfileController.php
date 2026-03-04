@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PremiumSubscriptionMail;
+use Carbon\Carbon;
 
 class UserProfileController extends Controller
 {
@@ -152,11 +156,28 @@ class UserProfileController extends Controller
             return response()->json(['message' => 'El usuario ya es premium'], 409);
         }
 
-        // Opcional: validar cobro aquí antes de activar premium
-        // $premiumPrice = Setting::where('key', 'premium_price')->value('value');
+        // Obtener el precio del premium desde la configuración
+        $premiumPrice = Setting::where('key', 'premium_price')->value('value') ?? '4.99';
 
         $profile->isPremium = 1;
         $profile->save();
+
+        // Obtener fecha actual formateada
+        $purchaseDate = Carbon::now()->format('d/m/Y H:i:s');
+
+        // Enviar correo de confirmación
+        try {
+            Mail::to($user->email)->send(
+                new PremiumSubscriptionMail(
+                    $profile->username,
+                    $purchaseDate,
+                    $premiumPrice
+                )
+            );
+        } catch (\Exception $e) {
+            // Log error pero no falla la transacción
+            \Log::error('Error enviando correo premium: ' . $e->getMessage());
+        }
 
         return response()->json([
             'message' => 'Premium activado correctamente',
