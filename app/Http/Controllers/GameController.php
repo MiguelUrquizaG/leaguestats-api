@@ -14,7 +14,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::with(['homeTeam', 'awayTeam'])->get();
+        $games = Game::with(['homeTeam', 'awayTeam', 'matchUps'])->get();
         return response()->json($games);
     }
 
@@ -71,7 +71,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return Game::find($game->id);
+        return response()->json($game->load(['homeTeam', 'awayTeam', 'matchUps']));
     }
 
     /**
