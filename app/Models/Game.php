@@ -17,5 +17,23 @@ class Game extends Model
         'away_team_score',
         'is_active',
         'league_id',
+        'mvp_id',
+        'date'
     ];
+
+    public function homeTeam()
+    {
+        return $this->belongsTo(Team::class, 'home_team_id');
+    }
+
+
+    public function awayTeam()
+    {
+        return $this->belongsTo(Team::class, 'away_team_id');
+    }
+
+    public function matchUps()
+    {
+        return $this->hasMany(match_up::class, 'game_id');
+    }
 }

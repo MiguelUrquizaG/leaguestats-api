@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -21,12 +20,11 @@ return new class extends Migration
             $table->double('team1_value');
             $table->double('team2_value');
             $table->text('instance');
-            $table->foreignId('winner_team_id')->constrained('teams')->cascadeOnDelete();
-            $table->enum('status',['Active','Closed']);
+            $table->foreignId('winner_team_id')->nullable()->constrained('teams')->cascadeOnDelete();
+            $table->enum('status', ['Active', 'Closed']);
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

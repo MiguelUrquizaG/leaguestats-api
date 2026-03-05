@@ -15,7 +15,23 @@ class Team extends Model
         'country_id',
         'lost_matches',
         'won_matches',
-        'league_id'
+        'league_id',
+        'team_wallpaper'
     ];
+
+    public function league()
+    {
+        return $this->belongsTo(League::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Countries::class);
+    }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
 
 }

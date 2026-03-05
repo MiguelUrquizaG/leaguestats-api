@@ -14,7 +14,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        return Game::all();
+        $games = Game::with(['homeTeam', 'awayTeam', 'matchUps'])->get();
+        return response()->json($games);
     }
 
     /**
@@ -38,6 +39,8 @@ class GameController extends Controller
         $game->away_team_score = $request->away_team_score;
         $game->is_active = $request->is_active;
         $game->league_id = $request->league_id;
+        $game->mvp_id = $request->mvp_id;
+        $game->date = $request->date;
 
         $game->save();
 
@@ -68,7 +71,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return Game::find($game->id);
+        return response()->json($game->load(['homeTeam', 'awayTeam', 'matchUps']));
     }
 
     /**
@@ -88,7 +91,7 @@ class GameController extends Controller
 
         $matchups = $request->input('matchUpList', []);
 
-        
+
         match_up::where('game_id', $game->id)->delete();
 
         foreach ($matchups as $matchup) {

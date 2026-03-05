@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PremiumSubscriptionMail;
+use Carbon\Carbon;
 
 class UserProfileController extends Controller
 {
@@ -13,7 +17,11 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        return UserProfile::all();
+        // En lugar de devolver solo los perfiles:
+        // return UserProfile::all();
+
+        // Devuelves los perfiles con sus relaciones ya cargadas:
+        return UserProfile::with(['country', 'team', 'league', 'user'])->get();
     }
 
     /**
@@ -37,6 +45,10 @@ class UserProfileController extends Controller
         $userProfile->country_id = $request->country_id;
         $userProfile->user_id = $request->user_id;
         $userProfile->banned = $request->banned;
+        $userProfile->team_id = $request->team_id;
+        $userProfile->league_id = $request->league_id;
+        $userProfile->isPremium = $request->isPremium;
+        $userProfile->balance = $request->balance;
 
         $userProfile->save();
 
@@ -47,9 +59,9 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserProfile $userProfile)
+    public function show(UserProfile $usersProfile)
     {
-        //
+        return response()->json($usersProfile);
     }
 
     /**
@@ -91,6 +103,85 @@ class UserProfileController extends Controller
             $user->banned = 1;
         }
 
-        $user -> save();
+        $user->save();
+    }
+
+    public function findByEmail(string $email)
+    {
+        // Buscamos el perfil que TENGA un usuario con ese email
+        $profile = UserProfile::whereHas('user', function ($query) use ($email) {
+            $query->where('email', $email);
+        })->with(['user', 'country', 'team'])->first(); // Cargamos relaciones para que no venga vacío
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado para ese email'], 404);
+        }
+
+        return response()->json($profile);
+    }
+    public function deposit(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1'
+        ]);
+
+        $user = auth()->user();
+
+        // Buscamos el perfil usando el modelo (ajusta el nombre si es distinto)
+        $userProfile = UserProfile::where('user_id', $user->id)->first();
+
+        if ($userProfile) {
+            $userProfile->balance += $request->amount;
+            $userProfile->save();
+
+            return response()->json([
+                'message' => 'Saldo añadido correctamente',
+                'balance' => $userProfile->balance
+            ], 200);
+        }
+
+        return response()->json(['message' => 'Perfil no encontrado'], 404);
+    }
+    public function subscribePremium(Request $request)
+    {
+        $user = $request->user();
+
+        $profile = UserProfile::where('user_id', $user->id)->first();
+
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        if ((int) $profile->isPremium === 1) {
+            return response()->json(['message' => 'El usuario ya es premium'], 409);
+        }
+
+        // Obtener el precio del premium desde la configuración
+        $premiumPrice = Setting::where('key', 'premium_price')->value('value') ?? '4.99';
+
+        $profile->isPremium = 1;
+        $profile->save();
+
+        // Obtener fecha actual formateada
+        $purchaseDate = Carbon::now()->format('d/m/Y H:i:s');
+
+        // Enviar correo de confirmación
+        try {
+            Mail::to($user->email)->send(
+                new PremiumSubscriptionMail(
+                    $profile->username,
+                    $purchaseDate,
+                    $premiumPrice
+                )
+            );
+        } catch (\Exception $e) {
+            // Log error pero no falla la transacción
+            \Log::error('Error enviando correo premium: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'message' => 'Premium activado correctamente',
+            'isPremium' => 1
+        ], 200);
     }
 }

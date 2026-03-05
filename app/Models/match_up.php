@@ -9,7 +9,7 @@ class match_up extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'game_id',
         'winner_team_id',
         'home_team_kills',
@@ -17,6 +17,9 @@ class match_up extends Model
         'away_team_kills',
         'away_team_gold',
         'home_team_side',
-        'away_team_side'
+        'away_team_side',
+        'home_team_towers',
+        'away_team_towers'
+
     ];
 }

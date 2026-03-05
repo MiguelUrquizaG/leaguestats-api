@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserBet extends Model
+class Champion extends Model
 {
     use HasFactory;
 
     protected $fillable=[
-        'user_id',
-        'bet_id',
+        'name',
+        'nickname',
+        'image',
+        'class',
+        
     ];
 }

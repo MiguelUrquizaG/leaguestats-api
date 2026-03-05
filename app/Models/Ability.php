@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class League extends Model
+class Ability extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'logo',
-        'country_id',
+        'description',
+        'image',
+        'champion_id'
     ];
-
-    public function country()
-    {
-        return $this->belongsTo(Countries::class);
-    }
 }

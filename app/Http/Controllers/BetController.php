@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bet;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserBetsController;
 
 class BetController extends Controller
 {
@@ -13,7 +14,17 @@ class BetController extends Controller
      */
     public function index()
     {
-        return Bet::all();
+        $bets = Bet::with(['league', 'team1', 'team2', 'winnerTeam'])->get();
+        return response()->json($bets);
+    }
+
+    public function active()
+    {
+        $bets = Bet::with(['league', 'team1', 'team2', 'winnerTeam'])
+            ->whereIn('status', ['Active', 'active'])
+            ->get();
+
+        return response()->json($bets);
     }
 
     /**
@@ -40,7 +51,7 @@ class BetController extends Controller
         $bet->instance = $request->instance;
         $bet->status = $request->status;
         $bet->winner_team_id = $request->winner_team_id;
-        
+
 
         $bet->save();
 
@@ -52,7 +63,9 @@ class BetController extends Controller
      */
     public function show(Bet $bet)
     {
-        return Bet::find($bet->id);
+        $bet->load(['league', 'team1', 'team2', 'winnerTeam']);
+
+        return $bet;
     }
 
     /**
@@ -100,7 +113,8 @@ class BetController extends Controller
         ];
     }
 
-    public function calculate(Request $request){
+    public function calculate(Request $request)
+    {
         $data = $this->calculateValues(
             $request->team1_id,
             $request->team2_id
@@ -108,5 +122,71 @@ class BetController extends Controller
 
 
         return response()->json($data);
+    }
+
+    public function setWinner(Request $request)
+    {
+        $bet = Bet::find($request->id);
+        $bet->status = 'closed';
+        $bet->winner_team_id = $request->winner_team_id;
+        $bet->save();
+
+        // Distribuir premios a los usuarios que ganaron
+        $userBetsController = new UserBetsController();
+        $userBetsController->distributePrizes($bet);
+
+        return response()->json($bet);
+    }
+
+    public function checkUserBet($betId)
+    {
+        // Buscamos la apuesta del usuario para este partido
+        $userBet = \DB::table('user_bets')
+            ->where('user_id', auth()->id())
+            ->where('bet_id', $betId)
+            ->first();
+
+        if ($userBet) {
+            return response()->json([
+                'total_bet' => $userBet->amount,
+                'winner_selected' => $userBet->winner_selected // <-- AÑADIMOS ESTO
+            ], 200);
+        }
+
+        // Si no hay apuesta, devolvemos null
+        return response()->json(['total_bet' => 0, 'winner_selected' => null], 200);
+    }
+    public function withdraw($betId)
+    {
+        $user = auth()->user();
+
+        // 1. Buscamos la apuesta de este usuario
+        $userBet = \DB::table('user_bets')
+            ->where('user_id', $user->id)
+            ->where('bet_id', $betId)
+            ->first();
+
+        if (!$userBet) {
+            return response()->json(['message' => 'No se encontró la apuesta'], 404);
+        }
+
+        // 2. ¡AQUÍ ESTÁ EL ARREGLO! Buscamos su perfil en lugar del user normal
+        // Asegúrate de que el modelo se llame UserProfile, si se llama Profile pon \App\Models\Profile
+        $userProfile = \App\Models\UserProfile::where('user_id', $user->id)->first();
+
+        if ($userProfile) {
+            $userProfile->balance += $userBet->amount;
+            $userProfile->save();
+        } else {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        // 3. Eliminamos el registro de la apuesta
+        \DB::table('user_bets')
+            ->where('user_id', $user->id)
+            ->where('bet_id', $betId)
+            ->delete();
+
+        return response()->json(['message' => 'Apuesta retirada y saldo devuelto'], 200);
     }
 }

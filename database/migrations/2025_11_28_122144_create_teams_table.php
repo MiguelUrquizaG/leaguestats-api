@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('lost_matches');
             $table->integer('won_matches');
             $table->foreignId('league_id')->constrained('leagues')->cascadeOnDelete();
+            $table->string('team_wallpaper');
             $table->timestamps();
         });
     }
