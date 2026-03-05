@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
             GamesAndMatchUpsSeeder::class,
             BetsSeeder::class,
             UsersSeeder::class,
-            SettingsSeeder::class
+            SettingsSeeder::class,
+            NewsCommentSeeder::class
         ]);
     }
 }
