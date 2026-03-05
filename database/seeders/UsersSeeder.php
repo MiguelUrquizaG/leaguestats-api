@@ -23,7 +23,34 @@ class UsersSeeder extends Seeder
         $password = Hash::make('12345678');
 
         // ---------------------------------------------------------
-        // 1. Crear el usuario principal (Raul)
+        // 1. Crear el usuario administrador
+        // ---------------------------------------------------------
+        $adminId = DB::table('users')->insertGetId([
+            'name' => 'Admin',
+            'email' => 'admin@leaguestats.com',
+            'password' => $password,
+            'role' => 'admin',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        DB::table('user_profiles')->insert([
+            'user_id' => $adminId,
+            'username' => 'Admin',
+            'rated_matches' => 0,
+            'followers' => 0,
+            'country_id' => $countries['España'] ?? null,
+            'banned' => false,
+            'team_id' => null,
+            'league_id' => null,
+            'isPremium' => true,
+            'balance' => 1000,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        // ---------------------------------------------------------
+        // 2. Crear el usuario principal (Raul)
         // ---------------------------------------------------------
         $raulId = DB::table('users')->insertGetId([
             'name' => 'Raul',
@@ -49,7 +76,7 @@ class UsersSeeder extends Seeder
         ]);
 
         // ---------------------------------------------------------
-        // 2. Generar 19 usuarios adicionales
+        // 3. Generar 19 usuarios adicionales
         // ---------------------------------------------------------
         $nombres = ['Ana', 'Carlos', 'Beatriz', 'David', 'Elena', 'Fernando', 'Gloria', 'Hugo', 'Irene', 'Jorge', 'Lucia', 'Marc', 'Natalia', 'Oscar', 'Paula', 'Ricardo', 'Sofia', 'Tomas', 'Valeria'];
         
