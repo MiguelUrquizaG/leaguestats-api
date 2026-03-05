@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        $team->load(['league', 'country', 'players']); 
+        $team->load(['league', 'country', 'players']);
         return response()->json($team);
     }
 
@@ -75,5 +76,12 @@ class TeamController extends Controller
     public function destroy(int $team)
     {
         return Team::destroy($team);
+    }
+
+    public function findTeamsByTeam($teamid)
+    {
+        $players= Player::where('team_id', $teamid)->get();
+
+        return response()->json($players);
     }
 }

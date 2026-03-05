@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('teams/{team}', [TeamController::class, 'show']);
     Route::put('teams/{team}', [TeamController::class, 'update'])->middleware('admin.only');
     Route::delete('teams/{team}', [TeamController::class, 'destroy'])->middleware('admin.only');
+    Route::get('teams/{team}/players', [TeamController::class, 'findTeamsByTeam']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
