@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bet;
+use App\Models\Game;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -75,12 +77,30 @@ class TeamController extends Controller
      */
     public function destroy(int $team)
     {
-        return Team::destroy($team);
+        $hasBets = Bet::where('team1_id', $team)
+            ->orWhere('team2_id', $team)
+            ->exists();
+
+        $hasGames = Game::where('home_team_id', $team)
+            ->orWhere('away_team_id', $team)
+            ->exists();
+
+        if ($hasBets || $hasGames) {
+            return response()->json([
+                'error' => 'No se puede eliminar el equipo porque forma parte de un partido o de una apuesta existente.'
+            ], 403);
+        }
+
+        Team::destroy($team);
+
+        return response()->json([
+            'message' => 'Equipo eliminado correctamente.'
+        ], 200);
     }
 
     public function findTeamsByTeam($teamid)
     {
-        $players= Player::where('team_id', $teamid)->get();
+        $players = Player::where('team_id', $teamid)->get();
 
         return response()->json($players);
     }
