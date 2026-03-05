@@ -31,33 +31,46 @@ Route::get('countries', [CountriesController::class, 'index']);
 Route::get('leagues', [LeagueController::class, 'index']);
 Route::get('teams', [TeamController::class, 'index']);
 
+// Countries - GET disponible para todos, POST/PUT/DELETE solo para admin
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('countries', CountriesController::class)->except(['index']);
+    Route::post('countries', [CountriesController::class, 'store'])->middleware('admin.only');
+    Route::get('countries/{country}', [CountriesController::class, 'show']);
+    Route::put('countries/{country}', [CountriesController::class, 'update'])->middleware('admin.only');
+    Route::delete('countries/{country}', [CountriesController::class, 'destroy'])->middleware('admin.only');
 });
 
+// Leagues - GET disponible para todos, POST/PUT/DELETE solo para admin
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('leagues', LeagueController::class)->except(['index']);
-    Route::get(
-        'leagues/{league}/teams',
-        [LeagueController::class, 'findTeamsByLeague']
-    );
+    Route::post('leagues', [LeagueController::class, 'store'])->middleware('admin.only');
+    Route::get('leagues/{league}', [LeagueController::class, 'show']);
+    Route::put('leagues/{league}', [LeagueController::class, 'update'])->middleware('admin.only');
+    Route::delete('leagues/{league}', [LeagueController::class, 'destroy'])->middleware('admin.only');
+    Route::get('leagues/{league}/teams', [LeagueController::class, 'findTeamsByLeague']);
 });
 
+// Teams - GET disponible para todos, POST/PUT/DELETE solo para admin
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('teams', TeamController::class)->except(['index']);
+    Route::post('teams', [TeamController::class, 'store'])->middleware('admin.only');
+    Route::get('teams/{team}', [TeamController::class, 'show']);
+    Route::put('teams/{team}', [TeamController::class, 'update'])->middleware('admin.only');
+    Route::delete('teams/{team}', [TeamController::class, 'destroy'])->middleware('admin.only');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('players', PlayerController::class);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('news/{newsId}/comments', [NewsCommentController::class, 'findByNewsId']);
-    Route::post('news/{newsId}/comments', [NewsCommentController::class, 'storeByNews']);
-});
+// News - GET disponible para todos bajo auth, POST/PUT/DELETE solo para admin
+Route::get('news', [NewsController::class, 'index']);
+Route::get('news/{news}', [NewsController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('news', NewsController::class);
+    Route::post('news', [NewsController::class, 'store'])->middleware('admin.only');
+    Route::put('news/{news}', [NewsController::class, 'update'])->middleware('admin.only');
+    Route::delete('news/{news}', [NewsController::class, 'destroy'])->middleware('admin.only');
+    
+    Route::get('news/{newsId}/comments', [NewsCommentController::class, 'findByNewsId']);
+    Route::post('news/{newsId}/comments', [NewsCommentController::class, 'storeByNews']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -67,18 +80,28 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('news-comments/{newsComment}/unlike', [NewsCommentController::class, 'unlike']);
 });
 
+// Bets - GET disponible para todos bajo auth, POST/PUT/DELETE solo para admin
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('bets', [BetController::class, 'index']);
     Route::get('bets/active', [BetController::class, 'active']);
-    Route::apiResource('bets', BetController::class);
+    Route::get('bets/{bet}', [BetController::class, 'show']);
+    Route::post('bets', [BetController::class, 'store'])->middleware('admin.only');
+    Route::put('bets/{bet}', [BetController::class, 'update'])->middleware('admin.only');
+    Route::delete('bets/{bet}', [BetController::class, 'destroy'])->middleware('admin.only');
     Route::post('bets/calculate', [BetController::class, 'calculate']);
-    Route::post('bets/close/{id}', [BetController::class, 'setWinner']);
-
+    Route::post('bets/close/{id}', [BetController::class, 'setWinner'])->middleware('admin.only');
 });
 
+// Games - GET disponible para todos bajo auth, POST/PUT/DELETE solo para admin
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('games', GameController::class);
+    Route::get('games', [GameController::class, 'index']);
+    Route::get('games/{game}', [GameController::class, 'show']);
     Route::get('games/{id}/matchups', [GameController::class, 'findMatchByGameId']);
+    Route::post('games', [GameController::class, 'store'])->middleware('admin.only');
+    Route::put('games/{game}', [GameController::class, 'update'])->middleware('admin.only');
+    Route::delete('games/{game}', [GameController::class, 'destroy'])->middleware('admin.only');
 });
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('match-ups', MatchUpController::class);
 });
