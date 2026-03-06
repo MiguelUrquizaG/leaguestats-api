@@ -1,271 +1,154 @@
-<p align="center">
-  <a href="https://laravel.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
-  </a>
-</p>
+# LeagueStats 🎮
 
-<p align="center">
-  <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+LeagueStats es una plataforma integral diseñada para los entusiastas del entorno competitivo de **League of Legends**.
+El proyecto combina el análisis de estadísticas detalladas con una experiencia de gamificación que permite a los usuarios participar en apuestas (Pick'ems) y comentar en las noticias diseñadas.
+
+Este ecosistema está compuesto por tres grandes módulos:
+* **Backend (API):** Desarrollado en **PHP Laravel 11**, encargado de la lógica de negocio, persistencia de datos y servicios RESTful. [cite: 48, 52]
+* **Frontend Administrador (Web):** Desarrollado en **Angular**, permitiendo la gestión completa de ligas, equipos, jugadores y eventos. [cite: 25, 26]
+* **Frontend Usuario (App Móvil):** Desarrollado en **Flutter** utilizando el patrón de diseño **BLoC** para una gestión de estado reactiva y fluida. [cite: 25, 27, 55]
 
 ---
 
-# 🚀 Proyecto Laravel API
+## 🚀 Guía de Instalación del Backend (API)
 
-Este proyecto está basado en **Laravel**, un framework de PHP moderno y expresivo que facilita el desarrollo de APIs y aplicaciones web robustas.
+Sigue estos pasos para configurar el núcleo del proyecto:
 
----
+### 1. Clonar el repositorio
+```bash
+git clone [https://github.com/MiguelUrquizaG/leaguestats-api](https://github.com/MiguelUrquizaG/leaguestats-api)
+cd leaguestats-api
 
-## 🧰 Requisitos previos
+```
 
--   PHP 8.2 o superior
--   Composer
--   MySQL o MariaDB
--   XAMPP / Valet / Laravel Sail (opcional)
+### 2. Configuración del entorno (.env)
 
----
+Crea un archivo llamado `.env` en la raíz del proyecto y copia exactamente el siguiente contenido (basado en la configuración oficial): 
 
-## ⚙️ Instalación del proyecto
+```env
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:Hj0rhWiyZXbkYiVcfcpVNdKBSt+JEH+p+j392H2goro=
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:4200
 
-1. **Clonar el repositorio:**
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
 
-    ```bash
-    git clone <url-del-repo>
-    cd <carpeta-del-proyecto>
-    ```
+APP_MAINTENANCE_DRIVER=file
+APP_MAINTENANCE_STORE=database
 
-2. **Instalar dependencias:**
+BCRYPT_ROUNDS=12
 
-    ```bash
-    composer install
-    ```
+LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_LEVEL=debug
 
-3. **Configurar entorno:**
-
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    ```
-
-4. **Configurar base de datos y migrar:**
-
-    ```bash
-    php artisan migrate
-    ```
-
-5. **Iniciar servidor local:**
-    ```bash
-    php artisan serve
-    ```
-
----
-
-## 💾 Conexión con la base de datos
-
-Debemos editar el fichero .env de nuestro proyecto, modificando la siguiente configuración como corresponda:
-
-```php
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=sacristan_db // nombre de la base de datos
-DB_USERNAME=sacdbuser // usuario de conexión a la base de datos
-DB_PASSWORD=password // contraseña de conexión a la base de datos
+DB_DATABASE=proyecto_api
+DB_USERNAME=proyecto_user
+DB_PASSWORD='Qpi.ScdAh1x(xaOT'
+
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_PATH=/
+SESSION_DOMAIN=null
+
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=database
+CACHE_STORE=file
+
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_MAILER=log
+MAIL_HOST=127.0.0.1
+MAIL_PORT=25
+
 ```
 
-Si necesitamos limpiar la información de la conexión de la caché, utilizar el siguiente comando en el terminal:
+### 3. Instalación y Base de Datos (Muy Importante) ⚠️
+
+Para que la aplicación sea funcional y contenga los datos iniciales necesarios, es **obligatorio ejecutar las migraciones y los seeders**:
 
 ```bash
-php artisan config:clear 
-```
+# Instalar dependencias de PHP
+composer install
 
-## 🧱 Generación de código con Artisan
+# Generar la clave de la aplicación
+php artisan key:generate
 
-### Crear nuevos modelos
+# Ejecutar migraciones y cargar datos de prueba (SEEDERS)
+php artisan migrate --seed
 
-Ejemplo con el modelo **Task**:
-
-```bash
-php artisan make:model Task -mcr
-```
-
-**Significado de las opciones:**
-
-| Opción | Descripción                                                                                      |
-| ------ | ------------------------------------------------------------------------------------------------ |
-| `-m`   | Crea la **migración** (`create_tasks_table.php`)                                                 |
-| `-c`   | Crea el **controlador** (`TaskController.php`)                                                   |
-| `-r`   | Genera un **controlador RESTful** con los métodos `index`, `store`, `show`, `update` y `destroy` |
-
----
-
-## 🗄️ Definición del esquema de migración
-
-El archivo de migración se genera en `database/migrations/`.
-
-Ejemplo básico:
-
-```php
-Schema::create('tasks', function (Blueprint $table) {
-    $table->id();  // Identificador principal
-    $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Relación con usuarios
-    $table->string('title');  // Campo de texto corto
-    $table->text('notes')->nullable(); // Campo de texto largo
-    $table->boolean('done')->default(false); // Estado booleano
-    $table->timestamps();
-});
-```
-
-Aplicar las migraciones:
-
-```bash
-php artisan migrate
-```
-
-En Laravel, las relaciones en migraciones se definen usando foreignId y constrained(). Esto crea una columna con clave foránea y la enlaza automáticamente con la tabla correspondiente.
-
-Ejemplo:
-
-```php
-Schema::create('producto', function (Blueprint $table) {
-    $table->id();  // Identificador principal
-    $table->foreignId('categoria_id')->constrained('categorias', 'id')->cascadeOnDelete();
-    $table->string('title');  // Campo de texto corto
-    $table->decimal('precio', 10, 2);
-    $table->timestamps();
-});
-
-```
-Significa:
-
-```foreignId('categoria_id'):``` crea una columna categoria_id tipo BIGINT sin signo.
-
-```constrained('categorias', 'id'):``` asume que la tabla relacionada es categorias y la columna es id.
-
-```cascadeOnDelete():``` si el usuario se borra, también se borran las secuencias asociadas.
-
-```$table->decimal('precio', 10, 2);``` 10 = dígitos totales, 2 = decimales. 
-
-## TIPOS NUMÉRICOS EN MIGRACIONES
-
-### Decimales / precisión fija
-
-```decimal(precision, scale)``` → perfecto para dinero.
-
-### Números en coma flotante
-
-```float(total, decimals)```
-
-```double(total, decimals)``` → igual que float pero más precisión.
-
-### Booleanos
-
-```boolean()``` → se almacena como TINYINT(1).
-
-### Otros menos usados
-```unsignedBigInteger()```, ```mediumInteger()```, ```unsignedTinyInteger()```, etc.
-
-Si trabajas con cantidades económicas → decimal.
-
-Si necesitas enteros → cualquier integer.
-
-Si necesitas aproximación → float o double.
-
-## TIPOS FECHAS Y TIEMPO EN MIGRACIONES
-
-```date()``` → solo fecha (YYYY-MM-DD)
-
-```datetime()``` → fecha y hora
-
-```timestamp()``` → marca de tiempo (usado para created_at, updated_at)
-
-```time()``` → solo hora
-
-```year()``` → solo año
-
-dateTimeTz() / timestampTz() → versiones con zona horaria
-
-### Otros útiles:
-
-```softDeletes()``` → crea deleted_at tipo timestamp
-
-```timestamps()``` → crea created_at y updated_at
-
-## TIPOS TEXTOS EN MIGRACIONES
-
-```string()``` → VARCHAR (hasta 255 chars)
-
-```text()``` → TEXT (hasta ~64 KB)
-
-```mediumText()``` → MEDIUMTEXT (hasta ~16 MB)
-
-```longText()``` → LONGTEXT (hasta ~4 GB)
-
-```char()``` → CHAR de longitud fija
-
-Ejemplos:
-```php
-$table->string('titulo');
-$table->text('descripcion');
-$table->mediumText('contenido_largo');
-$table->longText('json_grande');
 ```
 
 ---
 
-## 🧩 Generador de código con Blueprint
+## 🔐 Credenciales de Administrador
 
-Blueprint permite generar **modelos, controladores, migraciones y rutas** a partir de un archivo YAML sencillo.
+Una vez ejecutados los seeders, podrás acceder al panel de administración con los siguientes datos:
 
-### Instalación
+* **URL del Panel (Web):** `http://localhost:4200`
+* **Email:** `admin@leaguestats.com`
+* **Contraseña:** `12345678`
 
-```bash
-composer require --dev laravel-shift/blueprint
-```
+---
+## 🔐 Credenciales de Usuario
 
-### Definir el esquema (`draft.yaml`)
+Una vez ejecutados los seeders, podrás acceder al programa como usuario con los siguientes datos:
 
-Ejemplo:
-
-```yaml
-models:
-    Task:
-        title: string
-        notes: text nullable
-        done: boolean default:false
-        user_id: id:user
-
-controllers:
-    Task:
-        resource: api
-```
-
-### Generar el código
-
-```bash
-php artisan blueprint:build
-```
-
-Blueprint creará automáticamente:
-
--   `app/Models/Task.php`
--   `database/migrations/...create_tasks_table.php`
--   `app/Http/Controllers/TaskController.php`
--   y añadirá la ruta:
-    ```php
-    Route::apiResource('tasks', TaskController::class);
-    ```
-    en `routes/api.php`.
+* **URL del Panel (Flutter):** flutter
+* **Email:** `raul@email.com`
+* **Contraseña:** `12345678`
 
 ---
 
-## ✅ Recomendaciones
+## 🛠️ Otros Componentes
 
--   Usa `php artisan route:list` para revisar tus endpoints.
--   Añade autenticación con **Laravel Sanctum** si tu API necesita protección.
--   Usa **Postman** o **Insomnia** para probar tus endpoints fácilmente.
+### Web de Administración (Angular)
+
+Permite la gestión de la base de datos de jugadores, equipos y la creación de eventos de partidas. 
+
+1. `npm install`
+2. `ng serve`
+
+### Aplicación Móvil (Flutter)
+
+Enfocada al usuario final para consulta de estadísticas, apuestas simbólicas y valoraciones. 
+
+1. `flutter pub get`
+2. `flutter run`
 
 ---
+
+## ✨ Funcionalidades Destacadas
+
+* **Sistema de Pick'em:** Apuestas simbólicas con puntos para ganar premios futuros. 
+
+
+* **Valoración de Jugadores:** Calificación del desempeño individual tras cada partida. 
+
+
+* **Estadísticas Detalladas:** Acceso a métricas de rendimiento como KDA, oro y resultados históricos. 
+
+
+* **Noticias:** Sección de actualidad sobre el competitivo del League of Legends. 
+
+
+
+---
+
+**Autor:** Miguel Urquiza García 
+
+**Proyecto Intermodular - Junio 2026** 
