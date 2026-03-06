@@ -285,7 +285,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\"email\":\"raul@email.com\",\"password\":\"12345678\"}",
+              "raw": "{\"email\":\"admin@leaguestats.com\",\"password\":\"12345678\"}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -774,7 +774,18 @@
           "name": "PlayersByTeam",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{API_BASE_URL}}/teams/2/players",
+              "host": [
+                "{{API_BASE_URL}}"
+              ],
+              "path": [
+                "teams",
+                "2",
+                "players"
+              ]
+            }
           },
           "response": []
         }
@@ -1153,13 +1164,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{API_BASE_URL}}/bets/1",
+              "raw": "{{API_BASE_URL}}/bets/6",
               "host": [
                 "{{API_BASE_URL}}"
               ],
               "path": [
                 "bets",
-                "1"
+                "6"
               ]
             }
           },
