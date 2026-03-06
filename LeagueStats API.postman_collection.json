@@ -265,7 +265,7 @@
           ]
         },
         {
-          "name": "Login Copy",
+          "name": "Login Admin",
           "event": [
             {
               "listen": "test",
