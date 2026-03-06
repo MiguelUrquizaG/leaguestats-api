@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('news_id')->constrained('news')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('user_profiles')->cascadeOnDelete();
-            $table->integer('likes');
+            $table->integer('likes')->default(0);
             $table->string('comment');
             $table->timestamps();
         });
